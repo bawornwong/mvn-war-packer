@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+<context-root>ชิมช้อปใช้</context-root>
+	<valve>
+		<class-name>org.jboss.web.rewrite.RewriteValve</class-name>
+	</valve>
+	 <valve>
+        <class-name>org.apache.catalina.valves.AccessLogValve</class-name>
+        <param>
+            <param-name>prefix</param-name>
+            <param-value>access_log_</param-value>
+        </param>
+        <param>
+            <param-name>suffix</param-name>
+            <param-value>.log</param-value>
+        </param>
+        <param>
+            <param-name>fileDateFormat</param-name>
+            <!-- You can use pattern letters defined in SimpleDateFormat.
+                 This fileDateFormat setting affects to log rotation cycle
+            -->
+            <!-- default setting: daily -->
+            <param-value>yyyy-MM-dd.HH</param-value>
+            <!-- hourly
+            <param-value>yyyy-MM-dd.HH</param-value>
+            -->
+        </param>
+        <param>
+            <param-name>pattern</param-name>
+            <!-- You can use constant text or replacement strings defined in 
+                 http://docs.jboss.org/jbossweb/7.0.x/config/valve.html to pattern tokens.
+            -->
+            <!-- default setting: common (%h %l %u %t "%r" %s %b) -->
+            <param-value>%t "%r" %a %{X-Forwarded-For}i %{TargetPath}r %b %D %s</param-value>
+            <!-- combined (%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i") 
+            <param-value>combined</param-value>
+            -->            
+            <!-- combined + response time
+            <param-value>%h %l %u %t %r %s %b %{Referer}i %{User-Agent}i %T</param-value>
+            -->
+            <!-- combined + Session ID + Response time 
+            <param-value>%h %l %u %t %r %s %b %{Referer}i %{User-Agent}i %S %T</param-value>
+            -->
+        </param>
+        <param>
+            <param-name>directory</param-name>
+            <param-value>${jboss.server.log.dir}-accessLog</param-value>
+        </param>
+        <param>
+            <param-name>resolveHosts</param-name>
+            <param-value>false</param-value>
+        </param>
+    </valve>
+</jboss-web>
